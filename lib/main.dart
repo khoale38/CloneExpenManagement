@@ -20,7 +20,7 @@ bool loginMethod = false;
 int? language;
 bool isDark = false;
 bool isFirstStart = true;
-
+//test
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
