@@ -1,15 +1,7 @@
+import 'package:expenditure_management/constants/app_styles.dart';
 import 'package:expenditure_management/constants/function/loading_animation.dart';
 import 'package:expenditure_management/constants/function/route_function.dart';
 import 'package:expenditure_management/page/forgot/forgot_page.dart';
-import 'package:expenditure_management/page/signup/signup_page.dart';
-import 'package:expenditure_management/setting/localization/app_localizations.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:expenditure_management/constants/app_styles.dart';
 import 'package:expenditure_management/page/login/bloc/login_bloc.dart';
 import 'package:expenditure_management/page/login/bloc/login_event.dart';
 import 'package:expenditure_management/page/login/bloc/login_state.dart';
@@ -17,6 +9,14 @@ import 'package:expenditure_management/page/login/widget/custom_button.dart';
 import 'package:expenditure_management/page/login/widget/input_password.dart';
 import 'package:expenditure_management/page/login/widget/input_text.dart';
 import 'package:expenditure_management/page/login/widget/text_continue.dart';
+import 'package:expenditure_management/page/signup/signup_page.dart';
+import 'package:expenditure_management/setting/localization/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutterdget/text_continue.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -54,11 +54,7 @@ class _LoginFormState extends State<LoginForm> {
                 !FirebaseAuth.instance.currentUser!.emailVerified) {
               Navigator.pushReplacementNamed(context, "/verify");
             } else {
-              if (state.social == Social.newUser) {
-                Navigator.pushReplacementNamed(context, '/wallet');
-              } else {
-                Navigator.pushReplacementNamed(context, "/main");
-              }
+              Navigator.pushReplacementNamed(context, "/main");
             }
           });
         }
@@ -187,7 +183,7 @@ class _LoginFormState extends State<LoginForm> {
                             ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
-                                  const Color.fromRGBO(66, 103, 178, 1),
+                              const Color.fromRGBO(66, 103, 178, 1),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
