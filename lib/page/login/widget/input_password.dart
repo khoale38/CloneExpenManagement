@@ -27,6 +27,7 @@ class InputPassword extends StatelessWidget {
       controller: controller,
       obscureText: hide,
       style: AppStyles.p,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (password != null &&
                 password!.text.toString() != controller.text.toString() ||
