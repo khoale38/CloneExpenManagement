@@ -10,7 +10,7 @@ import 'package:expenditure_management/models/user.dart' as myuser;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  String _status = "";
+  String status = "Fail to login";
 
   LoginBloc() : super(InitState()) {
     on<LoginWithEmailPasswordEvent>((event, emit) async {
@@ -22,7 +22,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         });
         emit(LoginSuccessState(social: Social.email));
       } else {
-        emit(LoginErrorState(status: _status));
+        emit(LoginErrorState(status: status));
       }
     });
 
@@ -35,7 +35,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         bool check = await initInfoUser();
         emit(LoginSuccessState(social: check ? Social.google : Social.newUser));
       } else {
-        emit(LoginErrorState(status: _status));
+        emit(LoginErrorState(status: status));
       }
     });
 
@@ -49,7 +49,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(LoginSuccessState(
             social: check ? Social.facebook : Social.newUser));
       } else {
-        emit(LoginErrorState(status: _status));
+        emit(LoginErrorState(status: status));
       }
     });
   }
@@ -92,7 +92,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           .signInWithEmailAndPassword(email: emailAddress, password: password);
       return true;
     } on FirebaseAuthException catch (e) {
-      _status = e.code;
+      status = e.code;
       return false;
     }
   }

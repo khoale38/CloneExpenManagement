@@ -60,9 +60,8 @@ class _LoginFormState extends State<LoginForm> {
         }
 
         if (state is LoginErrorState && check) {
-          Navigator.pop(context);
-          Fluttertoast.showToast(
-              msg: AppLocalizations.of(context).translate(state.status));
+          // Navigator.pop(context);
+          Fluttertoast.showToast(msg: 'Fail to Login');
         }
         check = true;
 
@@ -183,7 +182,7 @@ class _LoginFormState extends State<LoginForm> {
                             ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
-                              const Color.fromRGBO(66, 103, 178, 1),
+                                  const Color.fromRGBO(66, 103, 178, 1),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),

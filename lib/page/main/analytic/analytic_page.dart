@@ -287,18 +287,37 @@ class _AnalyticPageState extends State<AnalyticPage>
         child: Column(
           children: [
             const SizedBox(height: 10),
-            showDate(
-              date: date,
-              index: 0,
-              now: now,
-              action: (date, now) {},
+            Expanded(
+              child: showDate(
+                date: date,
+                index: 0,
+                now: now,
+                action: (
+                  date,
+                  now,
+                ) {},
+              ),
             ),
-            TabBarType(controller: TabController(length: 2, vsync: this)),
+            Expanded(
+              child: TabBarType(
+                controller: TabController(
+                  length: 2,
+                  vsync: this,
+                ),
+              ),
+            ),
             const SizedBox(
               height: 350,
               child: Center(child: CircularProgressIndicator()),
             ),
-            tabBarChart(controller: TabController(length: 2, vsync: this)),
+            Expanded(
+              child: tabBarChart(
+                controller: TabController(
+                  length: 2,
+                  vsync: this,
+                ),
+              ),
+            ),
             const SizedBox(height: 10),
           ],
         ),
