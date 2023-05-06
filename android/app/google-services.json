@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "921149471053",
+    "firebase_url": "https://face-e4951-default-rtdb.firebaseio.com",
     "project_id": "face-e4951",
     "storage_bucket": "face-e4951.appspot.com"
   },
@@ -14,7 +15,23 @@
       },
       "oauth_client": [
         {
-          "client_id": "921149471053-3pl3th4kjchh4e2vngf7d8ue1vfghj0o.apps.googleusercontent.com",
+          "client_id": "921149471053-1gqle5amcgpn8hfit4pctjk3iflkcen9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.expenditure_management",
+            "certificate_hash": "02393507165d3c7806b199ab1b2bbc6c7d257058"
+          }
+        },
+        {
+          "client_id": "921149471053-b38ekm1ga4r6og7flqg0tmgkbrqb5btm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.expenditure_management",
+            "certificate_hash": "4fab527d6c082ea4876fc9f73626c328d8677065"
+          }
+        },
+        {
+          "client_id": "921149471053-jb4sopv4c0dbb9r3dusj7c093opbuvo9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
