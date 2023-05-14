@@ -51,9 +51,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
           if (snapshot.hasData) {
             myuser.User user = myuser.User.fromFirebase(snapshot.requireData);
             final nameController = TextEditingController(text: user.name);
-            final moneyController = TextEditingController(
-              text: NumberFormat.currency(locale: "vi_VI").format(user.money),
-            );
+
+            // final moneyController = TextEditingController(
+            //   text: NumberFormat.currency(locale: "vi_VI").format(user.money),
+            // );
+
+            final moneyController = TextEditingController();
+            String formatNumber(String s) =>
+                NumberFormat.decimalPattern("vi_VI").format(int.parse(s));
+
             bool gender = user.gender;
             File? image;
             DateTime selectedDate =
@@ -89,17 +95,47 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             const SizedBox(height: 30),
                             textProfile(AppLocalizations.of(context)
                                 .translate('monthly_money')),
-                            TextField(
-                              controller: moneyController,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp("[\\s0-9a-zA-Z]")),
-                                CurrencyTextInputFormatter(locale: "vi")
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    decoration: const InputDecoration(
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                      suffixIcon: Text(
+                                        'VND',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    controller: moneyController,
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp("[\\0-9]")),
+                                    ],
+                                    onChanged: (string) {
+                                      string = formatNumber(
+                                        string.replaceAll(
+                                          '.',
+                                          '',
+                                        ),
+                                      );
+                                      moneyController.value = TextEditingValue(
+                                        text: string,
+                                        selection: TextSelection.collapsed(
+                                          offset: string.length,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
                               ],
                             ),
                             const SizedBox(height: 30),
