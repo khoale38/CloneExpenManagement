@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expenditure_management/page/main/calendar/widget/custom_table_calendar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:expenditure_management/models/user.dart' as myuser;
 
@@ -160,7 +161,16 @@ class SpendingFirebase {
   }
 
   static Future updateInfo({required myuser.User user, File? image}) async {
-    if (image != null) {
+    if (image == null) {
+      final temp = await FirebaseFirestore.instance
+          .collection("info")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+      final image = myuser.User.fromFirebase(temp).avatar;
+      user.avatar = image;
+      //done
+      //ok
+    } else {
       user.avatar = await uploadImage(
         folder: "avatar",
         name: "${FirebaseAuth.instance.currentUser!.uid}.png",

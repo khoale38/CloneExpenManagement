@@ -160,6 +160,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 ),
                                 onPressed: () async {
                                   loadingAnimation(context);
+
                                   await SpendingFirebase.updateInfo(
                                     user: user.copyWith(
                                       name: nameController.text.trim(),
@@ -236,7 +237,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     width: 170,
                     fit: BoxFit.cover,
                     placeholder: (context, url) {
-                      return loadingInfo(width: 150, height: 150, radius: 90);
+                      return loadingInfo(
+                        width: 150,
+                        height: 150,
+                        radius: 90,
+                      );
                     },
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
@@ -348,8 +353,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return null;
   }
 
-  Widget loadingInfo(
-      {required double width, required double height, double radius = 5}) {
+  Widget loadingInfo({
+    required double width,
+    required double height,
+    double radius = 5,
+  }) {
     return Shimmer.fromColors(
       baseColor: Colors.grey[300]!,
       highlightColor: Colors.grey[100]!,
