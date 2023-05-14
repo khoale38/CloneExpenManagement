@@ -98,18 +98,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             Row(
                               children: [
                                 Expanded(
+                                  flex: 7,
                                   child: TextField(
-                                    decoration: const InputDecoration(
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.always,
-                                      suffixIcon: Text(
-                                        'VND',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
                                     controller: moneyController,
                                     style: const TextStyle(
                                       fontSize: 20,
@@ -134,6 +124,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         ),
                                       );
                                     },
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                const Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    'VND',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ],
