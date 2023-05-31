@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Spending {
   String? id;
@@ -10,6 +11,7 @@ class Spending {
   String? typeName;
   String? location;
   List<String>? friends;
+  String? uuid;
 
   Spending({
     this.id,
@@ -21,6 +23,7 @@ class Spending {
     this.typeName,
     this.location,
     this.friends,
+     this.uuid ,
   });
 
   Map<String, dynamic> toMap() => {
@@ -31,7 +34,8 @@ class Spending {
         "image": image,
         "typeName": typeName,
         "location": location,
-        "friends": friends
+        "friends": friends,
+        "uuid":uuid,
       };
 
   factory Spending.fromFirebase(DocumentSnapshot snapshot) {
@@ -45,6 +49,7 @@ class Spending {
         image: data["image"],
         typeName: data["typeName"],
         location: data["location"],
+         uuid: data["uuid"],
         friends: (data["friends"] as List<dynamic>)
             .map((e) => e.toString())
             .toList());
@@ -59,6 +64,7 @@ class Spending {
     String? typeName,
     String? location,
     List<String>? friends,
+    String? uuid,
   }) {
     return Spending(
       id: id,
@@ -70,6 +76,7 @@ class Spending {
       typeName: typeName ?? this.typeName,
       location: location ?? this.location,
       friends: friends ?? this.friends,
+      uuid:uuid?? this.uuid
     );
   }
 }
