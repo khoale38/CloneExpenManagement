@@ -18,6 +18,7 @@ import 'package:expenditure_management/page/add_spending/widget/more_button.dart
 import 'package:expenditure_management/page/add_spending/widget/pick_image_widget.dart';
 import 'package:expenditure_management/page/add_spending/widget/remove_icon.dart';
 import 'package:expenditure_management/setting/localization/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
@@ -385,6 +386,7 @@ class _EditSpendingPageState extends State<EditSpendingPage> {
         image: widget.spending.image,
         location: _location.text.trim(),
         friends: friends,
+        uuid: FirebaseAuth.instance.currentUser!.uid,
       );
       loadingAnimation(context);
       await SpendingFirebase.updateSpending(
