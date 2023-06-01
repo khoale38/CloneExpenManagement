@@ -52,11 +52,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
             myuser.User user = myuser.User.fromFirebase(snapshot.requireData);
             final nameController = TextEditingController(text: user.name);
 
-            // final moneyController = TextEditingController(
-            //   text: NumberFormat.currency(locale: "vi_VI").format(user.money),
-            // );
+            final moneyController = TextEditingController(
+              text: NumberFormat.decimalPattern("vi_VI").format(user.money),
+            );
 
-            final moneyController = TextEditingController();
             String formatNumber(String s) =>
                 NumberFormat.decimalPattern("vi_VI").format(int.parse(s));
 
@@ -132,7 +131,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   child: Text(
                                     'VND',
                                     style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 17,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -209,7 +208,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     ),
                                     image: image,
                                   );
-                                  if (!mounted) return;
+                                  //if (!mounted) return;
                                   Navigator.pop(context);
                                   Fluttertoast.showToast(
                                       msg: AppLocalizations.of(context)
