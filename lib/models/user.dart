@@ -36,12 +36,13 @@ class User {
     );
   }
 
-  User copyWith(
-      {String? name,
-      String? birthday,
-      String? avatar,
-      bool? gender,
-      int? money}) {
+  User copyWith({
+    String? name,
+    String? birthday,
+    String? avatar,
+    bool? gender,
+    int? money,
+  }) {
     return User(
       name: name ?? this.name,
       birthday: birthday ?? this.birthday,

@@ -63,6 +63,9 @@ class _AddSpendingPageState extends State<AddSpendingPage> {
           TextButton(
             onPressed: () async {
               await addingSpending();
+              // Fluttertoast.showToast(
+              //   msg: AppLocalizations.of(context).translate('added'),
+              // );
             },
             child: Text(
               AppLocalizations.of(context).translate('save'),
@@ -315,7 +318,7 @@ class _AddSpendingPageState extends State<AddSpendingPage> {
         image: image != null ? image!.path : null,
         location: _location.text.trim(),
         friends: friends,
-        uuid:FirebaseAuth.instance.currentUser!.uid,
+        uuid: FirebaseAuth.instance.currentUser!.uid,
       );
       loadingAnimation(context);
       await SpendingFirebase.addSpending(spending);

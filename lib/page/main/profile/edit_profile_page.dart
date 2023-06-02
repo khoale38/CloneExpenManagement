@@ -147,7 +147,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 final DateTime? picked = await showDatePicker(
                                   context: context,
                                   initialDate: selectedDate,
-                                  firstDate: DateTime(2000),
+                                  firstDate: DateTime(1800),
                                   lastDate: DateTime.now(),
                                 );
                                 if (picked != null && picked != selectedDate) {
@@ -208,11 +208,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                     ),
                                     image: image,
                                   );
-                                  //if (!mounted) return;
+                                  if (!mounted) return;
                                   Navigator.pop(context);
                                   Fluttertoast.showToast(
-                                      msg: AppLocalizations.of(context)
-                                          .translate("success"));
+                                    msg: AppLocalizations.of(context)
+                                        .translate("success"),
+                                  );
                                   Navigator.pop(context);
                                 },
                                 child: Text(

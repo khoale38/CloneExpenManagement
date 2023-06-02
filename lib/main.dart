@@ -22,8 +22,7 @@ bool isFirstStart = true;
 //test
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-  );
+  await Firebase.initializeApp();
   final prefs = await SharedPreferences.getInstance();
   language = prefs.getInt('language');
   isDark = prefs.getBool("isDark") ?? false;
@@ -47,64 +46,65 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: BlocBuilder<SettingCubit, SettingState>(
-          buildWhen: (previous, current) => previous != current,
-          builder: (_, settingState) {
-            return MaterialApp(
-              supportedLocales: AppLocalizationsSetup.supportedLocales,
-              localizationsDelegates:
-                  AppLocalizationsSetup.localizationsDelegates,
-              localeResolutionCallback:
-                  AppLocalizationsSetup.localeResolutionCallback,
-              locale: settingState.locale,
-              debugShowCheckedModeBanner: false,
-              title: 'Spending Management',
-              theme: settingState.isDark
-                  ? ThemeData(
-                      brightness: Brightness.dark,
-                      primarySwatch: Colors.blue,
-                    )
-                  : ThemeData(
-                      cardColor: Colors.white,
-                      colorScheme:
-                          const ColorScheme.light(background: Colors.white),
-                      brightness: Brightness.light,
-                      primarySwatch: Colors.blue,
-                      scaffoldBackgroundColor: AppColors.whisperBackground,
-                      bottomAppBarTheme:
-                          BottomAppBarTheme(color: AppColors.whisperBackground),
-                      floatingActionButtonTheme:
-                          const FloatingActionButtonThemeData(
-                        backgroundColor: Color.fromRGBO(121, 158, 84, 1),
-                      ),
-                      appBarTheme: AppBarTheme(
-                        backgroundColor: AppColors.whisperBackground,
-                        iconTheme: const IconThemeData(color: Colors.black),
-                        titleTextStyle: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      primaryColor: const Color.fromRGBO(242, 243, 247, 1),
+        buildWhen: (previous, current) => previous != current,
+        builder: (_, settingState) {
+          return MaterialApp(
+            supportedLocales: AppLocalizationsSetup.supportedLocales,
+            localizationsDelegates:
+                AppLocalizationsSetup.localizationsDelegates,
+            localeResolutionCallback:
+                AppLocalizationsSetup.localeResolutionCallback,
+            locale: settingState.locale,
+            debugShowCheckedModeBanner: false,
+            title: 'Spending Management',
+            theme: settingState.isDark
+                ? ThemeData(
+                    brightness: Brightness.dark,
+                    primarySwatch: Colors.blue,
+                  )
+                : ThemeData(
+                    cardColor: Colors.white,
+                    colorScheme:
+                        const ColorScheme.light(background: Colors.white),
+                    brightness: Brightness.light,
+                    primarySwatch: Colors.blue,
+                    scaffoldBackgroundColor: AppColors.whisperBackground,
+                    bottomAppBarTheme:
+                        BottomAppBarTheme(color: AppColors.whisperBackground),
+                    floatingActionButtonTheme:
+                        const FloatingActionButtonThemeData(
+                      backgroundColor: Color.fromRGBO(121, 158, 84, 1),
                     ),
-              initialRoute: FirebaseAuth.instance.currentUser == null
-                  ? (isFirstStart ? "/" : "/login")
-                  : loginMethod
-                      ? (FirebaseAuth.instance.currentUser!.emailVerified
-                          ? '/main'
-                          : '/verify')
-                      : '/main',
-              routes: {
-                '/': (context) => const OnBoardingPage(),
-                '/login': (context) => const LoginPage(),
-                '/home': (context) => const HomePage(),
-                '/main': (context) => const MainPage(),
-                '/forgot': (context) => const ForgotPage(),
-                '/success': (context) => const SuccessPage(),
-                '/verify': (context) => const VerifyPage(),
-              },
-            );
-          }),
+                    appBarTheme: AppBarTheme(
+                      backgroundColor: AppColors.whisperBackground,
+                      iconTheme: const IconThemeData(color: Colors.black),
+                      titleTextStyle: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    primaryColor: const Color.fromRGBO(242, 243, 247, 1),
+                  ),
+            initialRoute: FirebaseAuth.instance.currentUser == null
+                ? (isFirstStart ? "/" : "/login")
+                : loginMethod
+                    ? (FirebaseAuth.instance.currentUser!.emailVerified
+                        ? '/main'
+                        : '/verify')
+                    : '/main',
+            routes: {
+              '/': (context) => const OnBoardingPage(),
+              '/login': (context) => const LoginPage(),
+              '/home': (context) => const HomePage(),
+              '/main': (context) => const MainPage(),
+              '/forgot': (context) => const ForgotPage(),
+              '/success': (context) => const SuccessPage(),
+              '/verify': (context) => const VerifyPage(),
+            },
+          );
+        },
+      ),
     );
   }
 }

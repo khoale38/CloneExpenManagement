@@ -152,27 +152,32 @@ class _SearchPageState extends State<SearchPage> {
                         .toList());
                   }
                   return FutureBuilder(
-                      future: SpendingFirebase.getSpendingList(list),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          var spendingList = snapshot.data;
-                          var list = spendingList!.where(checkResult).toList();
-                          if (list.isEmpty) {
-                            return Center(
-                              child: Text(
-                                AppLocalizations.of(context)
-                                    .translate('nothing_here'),
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            );
-                          }
-                          return ItemSpendingDay(spendingList: list);
+                    future: SpendingFirebase.getSpendingList(list),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        var spendingList = snapshot.data;
+                        var list = spendingList!.where(checkResult).toList();
+                        if (list.isEmpty) {
+                          return Center(
+                            child: Text(
+                              AppLocalizations.of(context)
+                                  .translate('nothing_here'),
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          );
                         }
-                        return const Center(child: CircularProgressIndicator());
-                      });
+                        return ItemSpendingDay(spendingList: list);
+                      }
+                      return const Center(child: CircularProgressIndicator());
+                    },
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
-                return const Center(child: CircularProgressIndicator());
-              }),
+              },
+            ),
     );
   }
 }

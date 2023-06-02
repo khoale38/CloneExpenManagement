@@ -23,7 +23,7 @@ class Spending {
     this.typeName,
     this.location,
     this.friends,
-     this.uuid ,
+    this.uuid,
   });
 
   Map<String, dynamic> toMap() => {
@@ -35,24 +35,24 @@ class Spending {
         "typeName": typeName,
         "location": location,
         "friends": friends,
-        "uuid":uuid,
+        "uuid": uuid,
       };
 
   factory Spending.fromFirebase(DocumentSnapshot snapshot) {
     var data = snapshot.data() as Map<String, dynamic>;
     return Spending(
-        id: snapshot.id,
-        money: data["money"],
-        type: data["type"],
-        dateTime: (data["date"] as Timestamp).toDate(),
-        note: data["note"],
-        image: data["image"],
-        typeName: data["typeName"],
-        location: data["location"],
-         uuid: data["uuid"],
-        friends: (data["friends"] as List<dynamic>)
-            .map((e) => e.toString())
-            .toList());
+      id: snapshot.id,
+      money: data["money"],
+      type: data["type"],
+      dateTime: (data["date"] as Timestamp).toDate(),
+      note: data["note"],
+      image: data["image"],
+      typeName: data["typeName"],
+      location: data["location"],
+      uuid: data["uuid"],
+      friends:
+          (data["friends"] as List<dynamic>).map((e) => e.toString()).toList(),
+    );
   }
 
   Spending copyWith({
@@ -67,16 +67,15 @@ class Spending {
     String? uuid,
   }) {
     return Spending(
-      id: id,
-      money: money ?? this.money,
-      type: type ?? this.type,
-      dateTime: dateTime ?? this.dateTime,
-      note: note ?? this.note,
-      image: image ?? this.image,
-      typeName: typeName ?? this.typeName,
-      location: location ?? this.location,
-      friends: friends ?? this.friends,
-      uuid:uuid?? this.uuid
-    );
+        id: id,
+        money: money ?? this.money,
+        type: type ?? this.type,
+        dateTime: dateTime ?? this.dateTime,
+        note: note ?? this.note,
+        image: image ?? this.image,
+        typeName: typeName ?? this.typeName,
+        location: location ?? this.location,
+        friends: friends ?? this.friends,
+        uuid: uuid ?? this.uuid);
   }
 }

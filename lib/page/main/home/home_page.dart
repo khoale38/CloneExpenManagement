@@ -8,6 +8,7 @@ import 'package:expenditure_management/setting/localization/app_localizations.da
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:expenditure_management/models/user.dart' as myuser;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -88,9 +89,43 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Widget body({List<Spending>? spendingList}) {
+    Widget warningText({List<Spending>? spendingList}) {
+      return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection("info")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var userMoney = myuser.User.fromFirebase(snapshot.data!).money;
+            int spending = 0;
+            if (spendingList != null) {
+              for (var item in spendingList) {
+                spending = spending + item.money;
+              }
+            }
+            if (userMoney + spending < 0) {
+              return const Text(
+                'You are running out of money!',
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                ),
+              );
+            } else {
+              return const SizedBox.shrink();
+            }
+          } else {
+            return const SizedBox.shrink();
+          }
+        },
+      );
+    }
+
     return Column(
       children: [
         const SizedBox(height: 10),
+
         SizedBox(
           height: 40,
           child: TabBar(
@@ -125,7 +160,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             }),
           ),
         ),
+
         SummarySpending(spendingList: spendingList),
+        const SizedBox(height: 10),
+
+        //! Test
+        warningText(spendingList: spendingList),
+
         const SizedBox(height: 10),
         Text(
           "${AppLocalizations.of(context).translate('spending_list')} ${_monthController.index == 17 ? AppLocalizations.of(context).translate('this_month') : DateFormat("MM/yyyy").format(months[18 - _monthController.index])}",
